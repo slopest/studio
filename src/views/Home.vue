@@ -20,15 +20,18 @@
               prepend-icon="mdi-arrow-up-down"
               thumb-label/>
           </v-col>
-          <v-col cols="12">
+          <v-col
+            cols="12"
+            style="display: flex; flex-direction: column-reverse">
             <v-row
-              v-for="h in height"
-              :key="h">
+              v-for="y in height"
+              :key="y">
               <v-btn
-                v-for="w in width"
-                :key="`${h}-${w}-btn`"
-                icon>
-                <v-icon>mdi-circle</v-icon>
+                v-for="x in width"
+                :key="`${x}-${y}-btn`"
+                icon
+                @click="toggle(x, y, 'sloper')">
+                <v-icon>mdi-circle-medium</v-icon>
               </v-btn>
             </v-row>
           </v-col>
@@ -65,20 +68,18 @@
                   geometry="wall"
                   material="wall-material"/>
 
-                <template v-for="h in height">
-                  <template v-for="w in width">
-                    <vgl-sphere-geometry
-                      :key="`${h}-${w}-model`"
-                      :name="`hold-${h}-${w}`"
-                      radius="2"
-                      width-segments="64"
-                      height-segments="32"/>
-                    <vgl-mesh
-                      :key="`${h}-${w}-mesh`"
-                      :geometry="`hold-${h}-${w}`"
-                      :position="`${w * 20} ${h * 20} 0`"
-                      material="screw-material"/>
-                  </template>
+                <template v-for="hold in holds">
+                  <vgl-sphere-geometry
+                    :key="`${hold.x}-${hold.y}-model`"
+                    :name="`hold-${hold.x}-${hold.y}`"
+                    radius="2"
+                    width-segments="64"
+                    height-segments="32"/>
+                  <vgl-mesh
+                    :key="`${hold.x}-${hold.y}-mesh`"
+                    :geometry="`hold-${hold.x}-${hold.y}`"
+                    :position="`${hold.x * 20} ${hold.y * 20} 0`"
+                    material="screw-material"/>
                 </template>
                 <vgl-ambient-light intensity="0.5"/>
                 <vgl-directional-light
@@ -109,14 +110,15 @@ export default {
     return {
       height: 11,
       width: 5,
-      controls: undefined
+      controls: undefined,
+
+      holds: []
     }
   },
   mounted() {
     this.controls = new OrbitControls(this.$refs.camera.inst, this.$refs.renderer.inst.domElement)
     this.controls.enableDamping = true
     this.animate()
-    console.warn(this.$refs)
   },
   methods: {
     animate() {
@@ -126,6 +128,15 @@ export default {
     },
     render() {
       this.$refs.renderer.inst.render(this.$refs.scene.inst, this.$refs.camera.inst)
+    },
+    toggle(x, y, type) {
+      const hold = { x, y, type }
+      const index = this.holds.findIndex(hold => hold.x === x && hold.y === y)
+      if (index === -1) {
+        this.holds.push(hold)
+      } else {
+        this.holds.splice(index, 1)
+      }
     }
   }
 }
