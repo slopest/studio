@@ -3,31 +3,25 @@
     <template v-slot:activator="{ on }">
       <v-btn
         icon
-        v-on="on">
-        <v-icon :color="hold === undefined ? 'gray' : typeData.color">
-          mdi-circle-medium
+        v-on="on"
+        @click="tryAdd">
+        <v-icon
+          v-if="hold === undefined"
+          color="gray">
+          mdi-circle-small
+        </v-icon>
+        <v-icon
+          v-else
+          :color="typeData.color">
+          {{ typeData.icon }}
         </v-icon>
       </v-btn>
     </template>
-    <template v-if="hold === undefined">
-      <v-btn
-        block
-        @click="addHold({
-          x,
-          y,
-          z: form.z,
-          type: form.type
-        })">
-        Add hold
-      </v-btn>
-    </template>
-    <template v-else>
-      <v-btn
-        block
-        @click="removeHold({ x, y })">
-        Remove hold
-      </v-btn>
-    </template>
+    <v-btn
+      block
+      @click="removeHold({ x, y })">
+      Remove hold
+    </v-btn>
   </v-menu>
 </template>
 
@@ -70,7 +64,19 @@ export default {
       else return holdTypes[this.hold.type]
     }
   },
-  methods: mapActions(['addHold', 'updateHold', 'removeHold']),
+  methods: {
+    ...mapActions(['addHold', 'updateHold', 'removeHold']),
+    tryAdd() {
+      if (this.hold === undefined) {
+        this.addHold({
+          x: this.x,
+          y: this.y,
+          z: this.form.z,
+          type: this.form.type
+        })
+      }
+    }
+  },
   watch: {
     form: {
       handler(value) {

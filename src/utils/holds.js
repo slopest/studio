@@ -9,7 +9,8 @@ const holds = {
       'width-segments': 64,
       'height-segments': 32
     },
-    color: '#8a8a8a'
+    color: '#8a8a8a',
+    icon: 'mdi-circle-small'
   },
   sloper: {
     name: 'sloper',
@@ -19,7 +20,8 @@ const holds = {
       'width-segments': 64,
       'height-segments': 32
     },
-    color: '#B71C1C'
+    color: '#B71C1C',
+    icon: 'mdi-circle'
   },
   pocket: {
     name: 'pocket',
@@ -30,7 +32,8 @@ const holds = {
       'radial-segments': 30,
       'tubular-segments': 200
     },
-    color: '#F700B3'
+    color: '#F700B3',
+    icon: 'mdi-circle-double'
   }
 }
 
