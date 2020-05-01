@@ -39,7 +39,7 @@
       <div style="max-width: 50%">
         <h2>Preview</h2>
         <preview
-          :holds="holds"
+          :wall-holds="holds"
           :height="height"
           :width="width"/>
       </div>

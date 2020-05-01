@@ -20,8 +20,8 @@ export default {
       required: true
     },
     holds: {
-      type: Object,
-      default: () => {}
+      type: Array,
+      default: () => []
     }
   },
   methods: {

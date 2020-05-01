@@ -5,6 +5,11 @@
       antialias>
       <vgl-scene ref="scene">
         <vgl-mesh-standard-material
+          v-for="hold in holds"
+          :key="`${hold.name}-material`"
+          :name="`${hold.name}-material`"
+          :color="hold.color"/>
+        <vgl-mesh-standard-material
           name="screw-material"
           color="#B2BABB"/>
         <vgl-mesh-standard-material
@@ -27,19 +32,10 @@
           geometry="wall"
           material="wall-material"/>
 
-        <template v-for="hold in holds">
-          <vgl-sphere-geometry
-            :key="`${hold.x}-${hold.y}-model`"
-            :name="`hold-${hold.x}-${hold.y}`"
-            radius="2"
-            width-segments="64"
-            height-segments="32"/>
-          <vgl-mesh
-            :key="`${hold.x}-${hold.y}-mesh`"
-            :geometry="`hold-${hold.x}-${hold.y}`"
-            :position="`${hold.x * 20} ${hold.y * 20} ${hold.z * 20}`"
-            material="screw-material"/>
-        </template>
+        <hold-geometry
+          v-for="hold in wallHolds"
+          :key="`${hold.x}-${hold.y}-model`"
+          :hold="hold"/>
         <vgl-ambient-light intensity="0.5"/>
         <vgl-directional-light
           position="1 1 1"
@@ -54,15 +50,16 @@
 </template>
 
 <script>
-import { VglRenderer, VglScene, VglPlaneGeometry, VglMeshStandardMaterial, VglPerspectiveCamera, VglMesh, VglSphereGeometry, VglAmbientLight, VglDirectionalLight } from 'vue-gl'
-
+import { VglRenderer, VglScene, VglPlaneGeometry, VglMesh, VglMeshStandardMaterial, VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight } from 'vue-gl'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import HoldGeometry from './HoldGeometry.vue'
+import holds from '../utils/holds'
 
 export default {
   name: 'Preview',
   props: {
-    holds: {
-      type: Object,
+    wallHolds: {
+      type: Array,
       required: true
     },
     height: {
@@ -74,7 +71,12 @@ export default {
       required: true
     }
   },
-  components: { VglSphereGeometry, VglPlaneGeometry, VglRenderer, VglScene, VglMeshStandardMaterial, VglPerspectiveCamera, VglMesh, VglAmbientLight, VglDirectionalLight },
+  data() {
+    return {
+      holds
+    }
+  },
+  components: { HoldGeometry, VglMesh, VglPlaneGeometry, VglRenderer, VglScene, VglMeshStandardMaterial, VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight },
   mounted() {
     this.controls = new OrbitControls(this.$refs.camera.inst, this.$refs.renderer.inst.domElement)
     this.controls.enableDamping = true
