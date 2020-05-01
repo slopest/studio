@@ -29,7 +29,6 @@
               <hold-edit
                 v-for="x in width"
                 :key="`${x}-${y}-btn`"
-                v-model="holds"
                 :x="x"
                 :y="y"/>
             </v-row>
@@ -48,6 +47,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Preview from '../components/Preview'
 import HoldEdit from '../components/HoldEdit'
 
@@ -58,11 +58,10 @@ export default {
     return {
       height: 11,
       width: 5,
-      controls: undefined,
-
-      holds: []
+      controls: undefined
     }
-  }
+  },
+  computed: mapState(['holds'])
 }
 </script>
 

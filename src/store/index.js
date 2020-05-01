@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import myModule from './modules/myModule'
+import holds from './modules/holds'
 
 Vue.use(Vuex)
 
@@ -11,7 +11,7 @@ const mutations = {}
 const actions = {}
 
 const modules = {
-  myModule
+  holds
 }
 
 export default new Vuex.Store({ state, getters, mutations, actions, modules })
