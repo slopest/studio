@@ -1,5 +1,8 @@
 <template>
-  <v-menu offset-y>
+  <v-menu
+    :close-on-content-click="false"
+    :value="hold !== undefined"
+    offset-y>
     <template v-slot:activator="{ on }">
       <v-btn
         icon
@@ -17,11 +20,41 @@
         </v-icon>
       </v-btn>
     </template>
-    <v-btn
-      block
-      @click="removeHold({ x, y })">
-      Remove hold
-    </v-btn>
+    <v-card>
+      <v-card-text>
+        <span class="subtitle-1 black--text">{{ x }}; {{ y }}</span>
+        <v-text-field
+          v-model="form.z"
+          label="Z tilt"
+          type="number"/>
+        <v-select
+          v-model="form.type"
+          :items="Object.values(holdTypes).map(h => { return { value: h.id, data: h }})"
+          label="Type">
+          <template #selection="{ item }">
+            <v-icon
+              :color="item.data.color"
+              left>
+              {{ item.data.icon }}
+            </v-icon>
+            {{ item.data.name }}
+          </template>
+          <template #item="{ item }">
+            <v-icon
+              :color="item.data.color"
+              left>
+              {{ item.data.icon }}
+            </v-icon>
+            {{ item.data.name }}
+          </template>
+        </v-select>
+        <v-btn
+          block
+          @click="remove">
+          Remove hold
+        </v-btn>
+      </v-card-text>
+    </v-card>
   </v-menu>
 </template>
 
@@ -47,7 +80,8 @@ export default {
       form: {
         type: 'pocket',
         z: 0
-      }
+      },
+      holdTypes
     }
   },
   computed: {
@@ -75,6 +109,14 @@ export default {
           type: this.form.type
         })
       }
+    },
+    remove() {
+      this.removeHold({
+        x: this.hold.x,
+        y: this.hold.y
+      })
+      this.form.type = 'sloper'
+      this.form.z = 0
     }
   },
   watch: {
@@ -84,7 +126,7 @@ export default {
           this.updateHold({
             x: this.x,
             y: this.y,
-            z: value.z,
+            z: parseFloat(value.z),
             type: value.type
           })
         }

@@ -6,7 +6,7 @@
       v-bind="holdType.props"/>
     <vgl-mesh
       :geometry="`hold-${hold.x}-${hold.y}`"
-      :position="`${hold.x * 20} ${hold.y * 20} ${hold.z * 20}`"
+      :position="`${hold.x * 20} ${hold.y * 20} ${hold.z}`"
       :material="`${holdType.name}-material`"/>
   </div>
 </template>

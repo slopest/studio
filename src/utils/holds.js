@@ -2,7 +2,8 @@ import {VglSphereGeometry, VglTorusGeometry } from 'vue-gl'
 
 const holds = {
   screw: {
-    name: 'screw',
+    name: 'Screw',
+    id: 'screw',
     component: VglSphereGeometry,
     props: {
       radius: 1,
@@ -13,7 +14,8 @@ const holds = {
     icon: 'mdi-circle-small'
   },
   sloper: {
-    name: 'sloper',
+    name: 'Sloper',
+    id: 'sloper',
     component: VglSphereGeometry,
     props: {
       radius: 3,
@@ -24,11 +26,12 @@ const holds = {
     icon: 'mdi-circle'
   },
   pocket: {
-    name: 'pocket',
+    name: 'Pocket',
+    id: 'pocket',
     component: VglTorusGeometry,
     props: {
       radius: 2,
-      'tube-radius': 5,
+      tube: 2,
       'radial-segments': 30,
       'tubular-segments': 200
     },
