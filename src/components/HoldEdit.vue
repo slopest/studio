@@ -20,13 +20,9 @@
         </v-icon>
       </v-btn>
     </template>
-    <v-card>
+    <v-card v-if="hold !== undefined">
       <v-card-text>
         <span class="subtitle-1 black--text">{{ x }}; {{ y }}</span>
-        <v-text-field
-          v-model="form.z"
-          label="Z tilt"
-          type="number"/>
         <v-select
           v-model="form.type"
           :items="Object.values(holdTypes).map(h => { return { value: h.id, data: h }})"
@@ -48,6 +44,43 @@
             {{ item.data.name }}
           </template>
         </v-select>
+        <v-subheader>Position</v-subheader>
+        <v-text-field
+          v-model="form.z"
+          label="Z tilt"
+          type="number"/>
+        <v-subheader>Rotation</v-subheader>
+        <v-slider
+          v-model="form.rotation.x"
+          label="X"
+          max="360"/>
+        <v-slider
+          v-model="form.rotation.y"
+          label="Y"
+          max="360"/>
+        <v-slider
+          v-model="form.rotation.z"
+          label="Z"
+          max="360"/>
+        <v-subheader>Scale</v-subheader>
+        <v-slider
+          v-model="form.scale.x"
+          label="X"
+          min="0"
+          max="6"
+          step="0.05"/>
+        <v-slider
+          v-model="form.scale.y"
+          label="Y"
+          min="0"
+          max="6"
+          step="0.05"/>
+        <v-slider
+          v-model="form.scale.z"
+          label="Z"
+          min="0"
+          max="6"
+          step="0.05"/>
         <v-btn
           block
           @click="remove">
@@ -61,6 +94,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import holdTypes from '../utils/holds'
+import { defaultHoldForm } from '../utils/data'
 
 export default {
   name: 'HoldEdit',
@@ -77,10 +111,7 @@ export default {
   },
   data() {
     return {
-      form: {
-        type: 'pocket',
-        z: 0
-      },
+      form: Object.assign({}, defaultHoldForm),
       holdTypes
     }
   },
@@ -100,13 +131,15 @@ export default {
   },
   methods: {
     ...mapActions(['addHold', 'updateHold', 'removeHold']),
+    resetForm() {
+      this.form = Object.assign({}, defaultHoldForm)
+    },
     tryAdd() {
       if (this.hold === undefined) {
         this.addHold({
           x: this.x,
           y: this.y,
-          z: this.form.z,
-          type: this.form.type
+          ...this.form
         })
       }
     },
@@ -115,8 +148,8 @@ export default {
         x: this.hold.x,
         y: this.hold.y
       })
-      this.form.type = 'sloper'
-      this.form.z = 0
+      this.resetForm()
+      this.$emit('remove')
     }
   },
   watch: {
@@ -126,8 +159,7 @@ export default {
           this.updateHold({
             x: this.x,
             y: this.y,
-            z: parseFloat(value.z),
-            type: value.type
+            ...value
           })
         }
       },

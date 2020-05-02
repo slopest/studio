@@ -14,10 +14,7 @@ const mutations = {
   },
   UPDATE_HOLD(state, data) {
     let hold = state.find(hold => hold.x === data.x && hold.y === data.y) //eslint-disable-line no-unused-vars
-    hold.x = data.x
-    hold.y = data.y
-    hold.z = data.z
-    hold.type = data.type
+    Object.assign(hold, data)
   },
   REMOVE_HOLD(state, data) {
     let indexToRemove = state.findIndex(hold => hold.x === data.x && hold.y === data.y)

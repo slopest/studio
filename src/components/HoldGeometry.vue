@@ -5,7 +5,9 @@
       v-bind="holdType.props"
       :name="`hold-${hold.x}-${hold.y}`"
       :src="`/holds/${holdType.model}`"
-      :position="position"/>
+      :position="position"
+      :rotation="hold.rotation"
+      :scale="hold.scale"/>
   </div>
 </template>
 
