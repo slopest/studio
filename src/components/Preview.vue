@@ -13,10 +13,8 @@
           name="wall-material"
           color="#EB984E"/>
         <loader
-          ref="object"
-          x="60"
-          y="50"
-          z="0"
+          :position="{ x: 60, y: 80, z: 0 }"
+          :rotation="{ x: -70, y: 80, y: 20 }"
           name="hold"
           src="/holds/ball.3mf"/>
 
