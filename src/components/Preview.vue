@@ -15,7 +15,7 @@
         <loader
           ref="object"
           x="60"
-          y="10"
+          y="50"
           z="0"
           name="hold"
           src="/holds/ball.3mf"/>
@@ -79,7 +79,6 @@ export default {
     this.controls = new OrbitControls(this.$refs.camera.inst, this.$refs.renderer.inst.domElement)
     this.controls.enableDamping = true
     this.animate()
-    this.$refs.object.inst.translateX(600.0)
   },
   methods: {
     animate() {
