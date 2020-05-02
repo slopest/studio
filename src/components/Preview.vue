@@ -12,11 +12,6 @@
         <vgl-mesh-standard-material
           name="wall-material"
           color="#EB984E"/>
-        <loader
-          :position="{ x: 60, y: 80, z: 0 }"
-          :rotation="{ x: -70, y: 80, y: 20 }"
-          name="hold"
-          src="/holds/ball.3mf"/>
 
         <vgl-plane-geometry
           name="wall"
@@ -47,7 +42,6 @@
 <script>
 import { VglRenderer, VglScene, VglPlaneGeometry, VglMesh, VglMeshStandardMaterial, VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight } from 'vue-gl'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import Loader from '../loader'
 import HoldGeometry from './HoldGeometry.vue'
 import holds from '../utils/holds'
 
@@ -72,7 +66,7 @@ export default {
       holds
     }
   },
-  components: { Loader, HoldGeometry, VglMesh, VglPlaneGeometry, VglRenderer, VglScene, VglMeshStandardMaterial, VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight },
+  components: { HoldGeometry, VglMesh, VglPlaneGeometry, VglRenderer, VglScene, VglMeshStandardMaterial, VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight },
   mounted() {
     this.controls = new OrbitControls(this.$refs.camera.inst, this.$refs.renderer.inst.domElement)
     this.controls.enableDamping = true

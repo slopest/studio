@@ -1,23 +1,21 @@
 <template>
   <div class="hold">
-    <component
-      :is="holdType.component"
+    <loader
+      v-if="hold !== undefined"
+      v-bind="holdType.props"
       :name="`hold-${hold.x}-${hold.y}`"
-      v-bind="holdType.props"/>
-    <vgl-mesh
-      :geometry="`hold-${hold.x}-${hold.y}`"
-      :position="`${hold.x * 20} ${hold.y * 20} ${hold.z}`"
-      :material="`${holdType.name}-material`"/>
+      :src="`/holds/${holdType.model}`"
+      :position="position"/>
   </div>
 </template>
 
 <script>
-import { VglMesh } from 'vue-gl'
+import Loader from '../loader'
 import holds from '../utils/holds'
 
 export default {
   name: 'HoldGeometry',
-  components: { VglMesh },
+  components: { Loader },
   props: {
     hold: {
       type: Object,
@@ -27,6 +25,13 @@ export default {
   computed: {
     holdType() {
       return holds[this.hold.type]
+    },
+    position() {
+      return {
+        x: this.hold.x * 20,
+        y: this.hold.y * 20,
+        z: this.hold.z * 20
+      }
     }
   }
 }
