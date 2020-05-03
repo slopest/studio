@@ -51,15 +51,15 @@
           type="number"/>
         <v-subheader>Rotation</v-subheader>
         <v-slider
-          v-model="form.rotation.x"
+          v-model="form.xRotation"
           label="X"
           max="360"/>
         <v-slider
-          v-model="form.rotation.y"
+          v-model="form.yRotation"
           label="Y"
           max="360"/>
         <v-slider
-          v-model="form.rotation.z"
+          v-model="form.zRotation"
           label="Z"
           max="360"/>
         <v-subheader>Scale</v-subheader>
@@ -70,19 +70,19 @@
           prepend-icon="mdi-axis-arrow"/>
         <template v-if="threeAxisScale">
           <v-slider
-            v-model="form.scale.x"
+            v-model="form.xScale"
             label="X"
             min="0"
             max="6"
             step="0.05"/>
           <v-slider
-            v-model="form.scale.y"
+            v-model="form.yScale"
             label="Y"
             min="0"
             max="6"
             step="0.05"/>
           <v-slider
-            v-model="form.scale.z"
+            v-model="form.zScale"
             label="Z"
             min="0"
             max="6"
@@ -90,7 +90,7 @@
         </template>
         <v-slider
           v-else
-          v-model="form.oneAxisScale"
+          v-model="form.xScale"
           min="0"
           max="6"
           step="0.05"/>
@@ -153,7 +153,7 @@ export default {
         this.addHold({
           x: this.x,
           y: this.y,
-          ...this.form
+          type: this.form.type
         })
       }
     },
@@ -177,14 +177,24 @@ export default {
       handler(value) {
         if (this.hold !== undefined) {
           if (!this.threeAxisScale) {
-            value.scale.x = value.oneAxisScale
-            value.scale.y = value.oneAxisScale
-            value.scale.z = value.oneAxisScale
+            value.yScale = value.xScale
+            value.zScale = value.xScale
           }
           this.updateHold({
             x: this.x,
             y: this.y,
-            ...value
+            z: value.z,
+            type: value.type,
+            rotation: {
+              x: value.xRotation,
+              y: value.yRotation,
+              z: value.zRotation,
+            },
+            scale: {
+              x: value.xScale,
+              y: value.yScale,
+              z: value.zScale
+            }
           })
         }
       },
