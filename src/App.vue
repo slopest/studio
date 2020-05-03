@@ -1,7 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-toolbar-title>Modest Studio</v-toolbar-title>
+    <v-app-bar
+      dense
+      app>
+      <v-toolbar-title>Slope Studio</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
@@ -11,13 +13,7 @@
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  data () {
-    return {
-
-    }
-  }
-};
+  name: 'App'
+}
 </script>

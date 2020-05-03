@@ -1,13 +1,13 @@
-const holds = {
-  screw: {
+const holdTypes = [
+  {
     name: 'Screw',
     id: 'screw',
     model: 'screw.3mf',
     props: {},
     color: '#8a8a8a',
-    icon: 'mdi-circle-small'
+    icon: 'mdi-circle-medium'
   },
-  sloper: {
+  {
     name: 'Sloper',
     id: 'sloper',
     model: 'sloper.3mf',
@@ -15,14 +15,19 @@ const holds = {
     color: '#B71C1C',
     icon: 'mdi-circle'
   },
-  pocket: {
+  {
     name: 'Pocket',
     id: 'pocket',
     model: 'pocket.3mf',
     props: {},
     color: '#F700B3',
     icon: 'mdi-circle-double'
-  }
+  },
+]
+
+function findType(type) {
+  return holdTypes.find(hold => hold.id === type)
 }
 
-export default holds
+export default holdTypes
+export { holdTypes, findType }

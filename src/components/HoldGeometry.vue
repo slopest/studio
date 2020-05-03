@@ -1,8 +1,8 @@
 <template>
   <div class="hold">
-    <loader
+    <model-loader
       v-bind="holdType.props"
-      :name="`hold-${hold.x}-${hold.y}`"
+      :name="name"
       :src="`/holds/${holdType.model}`"
       :position="position"
       :rotation="hold.rotation"
@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import Loader from '../loader'
-import holds from '../utils/holds'
+import ModelLoader from '@/components/ModelLoader'
+import { findType } from '../utils/holds'
 
 export default {
   name: 'HoldGeometry',
-  components: { Loader },
+  components: { ModelLoader },
   props: {
     hold: {
       type: Object,
@@ -25,13 +25,16 @@ export default {
   },
   computed: {
     holdType() {
-      return holds[this.hold.type]
+      return findType(this.hold.type)
+    },
+    name() {
+      return `hold-${this.hold.position.x}-${this.hold.position.y}`
     },
     position() {
       return {
-        x: this.hold.x * 20,
-        y: this.hold.y * 20,
-        z: this.hold.z * 20
+        x: this.hold.position.x * 20,
+        y: this.hold.position.y * 20,
+        z: this.hold.position.z * 20
       }
     }
   }

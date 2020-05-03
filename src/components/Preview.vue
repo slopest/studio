@@ -2,17 +2,16 @@
   <div style="display: flex">
     <vgl-renderer
       ref="renderer"
+      camera="camera"
+      scene="scene"
+      name="renderer"
       antialias>
-      <vgl-scene ref="scene">
-        <vgl-mesh-standard-material
-          v-for="hold in holds"
-          :key="`${hold.name}-material`"
-          :name="`${hold.name}-material`"
-          :color="hold.color"/>
+      <vgl-scene
+        ref="scene"
+        name="scene">
         <vgl-mesh-standard-material
           name="wall-material"
           color="#EB984E"/>
-
         <vgl-plane-geometry
           name="wall"
           :width="width * 20"
@@ -25,7 +24,7 @@
 
         <hold-geometry
           v-for="hold in wallHolds"
-          :key="`${hold.x}-${hold.y}-model`"
+          :key="`hold-${hold.x}-${hold.y}--geometry`"
           :hold="hold"/>
         <vgl-ambient-light intensity="0.5"/>
         <vgl-directional-light
@@ -41,10 +40,13 @@
 </template>
 
 <script>
-import { VglRenderer, VglScene, VglPlaneGeometry, VglMesh, VglMeshStandardMaterial, VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight } from 'vue-gl'
+import {
+  VglRenderer, VglScene,
+  VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight ,
+  VglPlaneGeometry, VglMesh, VglMeshStandardMaterial
+} from 'vue-gl'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import HoldGeometry from './HoldGeometry.vue'
-import holds from '../utils/holds'
 
 export default {
   name: 'Preview',
@@ -64,16 +66,27 @@ export default {
   },
   data() {
     return {
-      holds
+      controls: undefined
     }
   },
-  components: { HoldGeometry, VglMesh, VglPlaneGeometry, VglRenderer, VglScene, VglMeshStandardMaterial, VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight },
+  components: {
+    VglRenderer, VglScene,
+    VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight,
+    VglMesh, VglMeshStandardMaterial, VglPlaneGeometry,
+    HoldGeometry
+  },
   mounted() {
     this.controls = new OrbitControls(this.$refs.camera.inst, this.$refs.renderer.inst.domElement)
     this.controls.enableDamping = true
     this.animate()
   },
   methods: {
+    removeHold(name) {
+      let selected = this.$refs.scene.inst.getObjectByName(name)
+      this.$refs.scene.inst.remove(selected)
+
+      this.animate()
+    },
     animate() {
       requestAnimationFrame(this.animate)
       this.controls.update()
@@ -81,13 +94,13 @@ export default {
     },
     render() {
       this.$refs.renderer.inst.render(this.$refs.scene.inst, this.$refs.camera.inst)
-    },
-    removeHold(name) {
-      let selected = this.$refs.scene.inst.getObjectByName(name)
-      this.$refs.scene.inst.remove(selected)
-
-      this.animate()
     }
   }
 }
 </script>
+
+<style>
+  canvas {
+    max-height: 80vh
+  }
+</style>

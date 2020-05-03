@@ -7,17 +7,17 @@
           <v-col cols="12">
             <v-slider
               v-model="width"
+              prepend-icon="mdi-arrow-left-right"
+              label="Width"
               min="1"
               max="25"
-              label="Width"
-              prepend-icon="mdi-arrow-left-right"
               thumb-label/>
             <v-slider
               v-model="height"
+              prepend-icon="mdi-arrow-up-down"
+              label="Height"
               min="2"
               max="55"
-              label="Height"
-              prepend-icon="mdi-arrow-up-down"
               thumb-label/>
           </v-col>
           <v-col
@@ -28,7 +28,7 @@
               :key="y">
               <hold-edit
                 v-for="x in width"
-                :key="`${x}-${y}-btn`"
+                :key="`hold-${x}-${y}--editor`"
                 :x="x"
                 :y="y"
                 @remove="$refs.preview.removeHold($event)"/>
@@ -50,8 +50,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Preview from '../components/Preview'
-import HoldEdit from '../components/HoldEdit'
+import Preview from '@/components/Preview'
+import HoldEdit from '@/components/HoldEdit'
 
 export default {
   name: 'Home',
@@ -59,16 +59,9 @@ export default {
   data () {
     return {
       height: 11,
-      width: 5,
-      controls: undefined
+      width: 5
     }
   },
   computed: mapState(['holds'])
 }
 </script>
-
-<style>
-  canvas {
-    max-height: 80vh
-  }
-</style>

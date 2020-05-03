@@ -3,16 +3,20 @@
 const state = []
 
 const getters = {
-  getHoldByPosition: state => data => {
-    return state.find(hold => hold.x === data.x && hold.y === data.y)
+  getHoldByPosition: (state) => ({ x, y }) => {
+    return state.find(hold => hold.position.x === x && hold.position.y === y)
   }
 }
 
 const mutations = {
-  ADD_HOLD(state, data) {
+  ADD_HOLD(state, { x, y }) {
     state.push({
-      ...data,
-      z: 0,
+      type: 'sloper',
+      position: {
+        x,
+        y,
+        z: 0,
+      },
       rotation: {
         x: 0,
         y: 0,
@@ -26,24 +30,24 @@ const mutations = {
     })
   },
   UPDATE_HOLD(state, data) {
-    let hold = state.find(hold => hold.x === data.x && hold.y === data.y) //eslint-disable-line no-unused-vars
+    let hold = state.find(hold => hold.position.x === data.position.x && hold.position.y === data.position.y)
     Object.assign(hold, data)
   },
-  REMOVE_HOLD(state, data) {
-    let indexToRemove = state.findIndex(hold => hold.x === data.x && hold.y === data.y)
+  REMOVE_HOLD(state, { x, y }) {
+    let indexToRemove = state.findIndex(hold => hold.position.x === x && hold.position.y === y)
     state.splice(indexToRemove, 1)
   }
 }
 
 const actions = {
-  addHold({ commit }, data) {
-    commit('ADD_HOLD', data)
+  addHold({ commit }, position) {
+    commit('ADD_HOLD', position)
   },
   updateHold({ commit }, data) {
     commit('UPDATE_HOLD', data)
   },
-  removeHold({ commit }, data) {
-    commit('REMOVE_HOLD', data)
+  removeHold({ commit }, position) {
+    commit('REMOVE_HOLD', position)
   }
 }
 

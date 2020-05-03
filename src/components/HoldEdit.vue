@@ -2,7 +2,8 @@
   <v-menu
     :close-on-content-click="false"
     :value="hold !== undefined"
-    offset-y>
+    offset-y
+    @update:return-value="abortUpdate">
     <template v-slot:activator="{ on }">
       <v-btn
         icon
@@ -15,17 +16,44 @@
         </v-icon>
         <v-icon
           v-else
-          :color="typeData.color">
-          {{ typeData.icon }}
+          :color="holdType.color">
+          {{ holdType.icon }}
         </v-icon>
       </v-btn>
     </template>
     <v-card v-if="hold !== undefined">
       <v-card-text>
-        <span class="subtitle-1 black--text">{{ x }}; {{ y }}</span>
+        <v-row class="mx-0">
+          <span class="subtitle-1 black--text">{{ x }}; {{ y }}</span>
+          <v-spacer/>
+          <v-tooltip bottom>
+            <template #activator="{ on }">
+              <v-btn
+                color="green"
+                icon
+                v-on="on"
+                @click="update">
+                <v-icon>mdi-check</v-icon>
+              </v-btn>
+            </template>
+            <span>Update</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template #activator="{ on }">
+              <v-btn
+                color="red"
+                icon
+                v-on="on"
+                @click="abortUpdate">
+                <v-icon>mdi-cancel</v-icon>
+              </v-btn>
+            </template>
+            <span>Discard changes</span>
+          </v-tooltip>
+        </v-row>
         <v-select
           v-model="form.type"
-          :items="Object.values(holdTypes).map(h => { return { value: h.id, data: h }})"
+          :items="holdTypes.map(h => { return { value: h.id, data: h }})"
           label="Type">
           <template #selection="{ item }">
             <v-icon
@@ -95,6 +123,8 @@
           max="6"
           step="0.05"/>
         <v-btn
+          color="error"
+          text
           block
           @click="remove">
           Remove hold
@@ -106,7 +136,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
-import holdTypes from '../utils/holds'
+import { holdTypes, findType } from '../utils/holds'
 import { defaultHoldForm } from '../utils/data'
 
 export default {
@@ -125,7 +155,9 @@ export default {
   data() {
     return {
       threeAxisScale: false,
+      oldForm: Object.assign({}, defaultHoldForm),
       form: Object.assign({}, defaultHoldForm),
+
       holdTypes
     }
   },
@@ -138,67 +170,62 @@ export default {
         y: this.y
       })
     },
-    typeData() {
+    holdType() {
       if (this.hold === undefined) return undefined
-      else return holdTypes[this.hold.type]
+      else return findType(this.hold.type)
     }
   },
   methods: {
     ...mapActions(['addHold', 'updateHold', 'removeHold']),
-    resetForm() {
-      this.form = Object.assign({}, defaultHoldForm)
-    },
     tryAdd() {
       if (this.hold === undefined) {
         this.addHold({
           x: this.x,
-          y: this.y,
-          type: this.form.type
+          y: this.y
         })
       }
+    },
+    update() {
+      if (!this.threeAxisScale) {
+        this.form.yScale = this.form.xScale
+        this.form.zScale = this.form.xScale
+      }
+      if (this.oldForm.type !== this.form.type)
+        this.removeGeometry()
+
+      this.updateHold({
+        type: this.form.type,
+        position: {
+          x: this.x,
+          y: this.y,
+          z: this.form.z,
+        },
+        rotation: {
+          x: this.form.xRotation,
+          y: this.form.yRotation,
+          z: this.form.zRotation,
+        },
+        scale: {
+          x: this.form.xScale,
+          y: this.form.yScale,
+          z: this.form.zScale
+        }
+      })
+      Object.assign(this.oldForm, this.form)
+    },
+    abortUpdate() {
+      Object.assign(this.form, this.oldForm)
     },
     remove() {
       this.removeGeometry()
       this.removeHold({
-        x: this.hold.x,
-        y: this.hold.y
+        x: this.x,
+        y: this.y
       })
-      this.resetForm()
+      Object.assign(this.form, defaultHoldForm)
     },
     removeGeometry() {
-      this.$emit('remove', `hold-${this.hold.x}-${this.hold.y}`)
-    }
-  },
-  watch: {
-    'form.type'() {
-      this.removeGeometry()
-    },
-    form: {
-      handler(value) {
-        if (this.hold !== undefined) {
-          if (!this.threeAxisScale) {
-            value.yScale = value.xScale
-            value.zScale = value.xScale
-          }
-          this.updateHold({
-            x: this.x,
-            y: this.y,
-            z: value.z,
-            type: value.type,
-            rotation: {
-              x: value.xRotation,
-              y: value.yRotation,
-              z: value.zRotation,
-            },
-            scale: {
-              x: value.xScale,
-              y: value.yScale,
-              z: value.zScale
-            }
-          })
-        }
-      },
-      deep: true
+      this.$emit('remove', `hold-${this.x}-${this.y}`)
     }
   }
 }
