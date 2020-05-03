@@ -19,6 +19,7 @@
           :height="height * 20"/>
         <vgl-mesh
           :position="`${10 + (width * 20 / 2)} ${10 + (height * 20 / 2)} 0`"
+          name="wall-mesh"
           geometry="wall"
           material="wall-material"/>
 
@@ -34,7 +35,7 @@
       <vgl-perspective-camera
         ref="camera"
         name="camera"
-        orbit-position="200 1.5 0"/>
+        orbit-position="300 1.2 0"/>
     </vgl-renderer>
   </div>
 </template>
@@ -80,6 +81,12 @@ export default {
     },
     render() {
       this.$refs.renderer.inst.render(this.$refs.scene.inst, this.$refs.camera.inst)
+    },
+    removeHold(name) {
+      let selected = this.$refs.scene.inst.getObjectByName(name)
+      this.$refs.scene.inst.remove(selected)
+
+      this.animate()
     }
   }
 }

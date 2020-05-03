@@ -144,15 +144,21 @@ export default {
       }
     },
     remove() {
+      this.removeGeometry()
       this.removeHold({
         x: this.hold.x,
         y: this.hold.y
       })
       this.resetForm()
-      this.$emit('remove')
+    },
+    removeGeometry() {
+      this.$emit('remove', `hold-${this.hold.x}-${this.hold.y}`)
     }
   },
   watch: {
+    'form.type'() {
+      this.removeGeometry()
+    },
     form: {
       handler(value) {
         if (this.hold !== undefined) {

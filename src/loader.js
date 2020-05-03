@@ -53,6 +53,8 @@ export default {
           // ...but we didn't touch it in this assign?
           // I guess javascript is weird c:
         }
+        object.name = `hold-${this.position.x / 20}-${this.position.y / 20}`
+
         object.children[0].position.set(this.position.x, this.position.y, this.position.z)
         object.children[0].setRotationFromEuler(
           new Euler(

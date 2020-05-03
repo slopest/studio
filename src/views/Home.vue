@@ -30,7 +30,8 @@
                 v-for="x in width"
                 :key="`${x}-${y}-btn`"
                 :x="x"
-                :y="y"/>
+                :y="y"
+                @remove="$refs.preview.removeHold($event)"/>
             </v-row>
           </v-col>
         </v-row>
@@ -38,6 +39,7 @@
       <div style="max-width: 50%">
         <h2>Preview</h2>
         <preview
+          ref="preview"
           :wall-holds="holds"
           :height="height"
           :width="width"/>

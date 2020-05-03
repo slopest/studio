@@ -1,7 +1,6 @@
 <template>
   <div class="hold">
     <loader
-      v-if="hold !== undefined"
       v-bind="holdType.props"
       :name="`hold-${hold.x}-${hold.y}`"
       :src="`/holds/${holdType.model}`"
