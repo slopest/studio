@@ -6,6 +6,7 @@ const defaultHoldForm = {
     y: 0,
     z: 0
   },
+  oneAxisScale: 0,
   scale: {
     x: 1,
     y: 1,

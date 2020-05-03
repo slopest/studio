@@ -63,21 +63,34 @@
           label="Z"
           max="360"/>
         <v-subheader>Scale</v-subheader>
+        <v-switch
+          v-model="threeAxisScale"
+          inset
+          label="Three axis scale"
+          prepend-icon="mdi-axis-arrow"/>
+        <template v-if="threeAxisScale">
+          <v-slider
+            v-model="form.scale.x"
+            label="X"
+            min="0"
+            max="6"
+            step="0.05"/>
+          <v-slider
+            v-model="form.scale.y"
+            label="Y"
+            min="0"
+            max="6"
+            step="0.05"/>
+          <v-slider
+            v-model="form.scale.z"
+            label="Z"
+            min="0"
+            max="6"
+            step="0.05"/>
+        </template>
         <v-slider
-          v-model="form.scale.x"
-          label="X"
-          min="0"
-          max="6"
-          step="0.05"/>
-        <v-slider
-          v-model="form.scale.y"
-          label="Y"
-          min="0"
-          max="6"
-          step="0.05"/>
-        <v-slider
-          v-model="form.scale.z"
-          label="Z"
+          v-else
+          v-model="form.oneAxisScale"
           min="0"
           max="6"
           step="0.05"/>
@@ -111,6 +124,7 @@ export default {
   },
   data() {
     return {
+      threeAxisScale: false,
       form: Object.assign({}, defaultHoldForm),
       holdTypes
     }
@@ -162,6 +176,11 @@ export default {
     form: {
       handler(value) {
         if (this.hold !== undefined) {
+          if (!this.threeAxisScale) {
+            value.scale.x = value.oneAxisScale
+            value.scale.y = value.oneAxisScale
+            value.scale.z = value.oneAxisScale
+          }
           this.updateHold({
             x: this.x,
             y: this.y,
