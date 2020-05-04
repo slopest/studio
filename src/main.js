@@ -4,6 +4,7 @@ import App from '@/App.vue'
 import router from '@/plugins/router'
 import store from '@/store'
 import vuetify from '@/plugins/vuetify'
+import '@/plugins/meta'
 import '@/registerServiceWorker'
 
 import '@/style/index.styl'
