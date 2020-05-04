@@ -2,7 +2,6 @@
   "name": "Screw",
   "id": "screw",
   "model": {
-    "path": "screw.3mf",
     "props": {}
   },
   "editor": {
