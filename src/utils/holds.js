@@ -1,41 +1,16 @@
-const holdTypes = [
-  {
-    name: 'Screw',
-    id: 'screw',
-    model: {
-      path: 'screw.3mf',
-      props: {},
-    },
-    editor: {
-      color: '#8a8a8a',
-      icon: 'mdi-circle-medium'
+function getHolds() {
+  const types = require.context(`../data/holds`, true, /[A-Za-z0-9-_,\s]+\.json$/i)
+  const holds = []
+  types.keys().forEach(key => {
+    const matched = key.match(/([A-Za-z0-9-_]+)\./i)
+    if (matched && matched.length > 1) {
+      holds.push(types(key))
     }
-  },
-  {
-    name: 'Sloper',
-    id: 'sloper',
-    model: {
-      path: 'sloper.3mf',
-      props: {},
-    },
-    editor: {
-      color: '#B71C1C',
-      icon: 'mdi-circle'
-    }
-  },
-  {
-    name: 'Pocket',
-    id: 'pocket',
-    model: {
-      path: 'pocket.3mf',
-      props: {},
-    },
-    editor: {
-      color: '#F700B3',
-      icon: 'mdi-circle-double'
-    }
-  },
-]
+  })
+  return holds
+}
+
+const holdTypes = getHolds()
 
 function findType(type) {
   return holdTypes.find(hold => hold.id === type)

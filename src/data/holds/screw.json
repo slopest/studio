@@ -1,0 +1,12 @@
+{
+  "name": "Screw",
+  "id": "screw",
+  "model": {
+    "path": "screw.3mf",
+    "props": {}
+  },
+  "editor": {
+    "color": "#8a8a8a",
+    "icon": "mdi-circle-medium"
+  }
+}

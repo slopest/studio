@@ -1,0 +1,12 @@
+{
+  "name": "Sloper",
+  "id": "sloper",
+  "model": {
+    "path": "sloper.3mf",
+    "props": {}
+  },
+  "editor": {
+    "color": "#B71C1C",
+    "icon": "mdi-circle"
+  }
+}

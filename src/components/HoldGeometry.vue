@@ -4,7 +4,7 @@
       v-model="hold"
       v-bind="holdType.model.props"
       :name="name"
-      :src="`/holds/${holdType.model.path}`"/>
+      :type="holdType.id"/>
   </div>
 </template>
 

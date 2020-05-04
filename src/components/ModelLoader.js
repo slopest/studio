@@ -10,7 +10,7 @@ export default {
     prop: 'hold'
   },
   props: {
-    src: {
+    type: {
       type: String,
       required: true
     },
@@ -24,7 +24,7 @@ export default {
       let object = new Object3D()
       const loader = new ThreeMFLoader()
 
-      loader.load(this.src, (loadedObject) => {
+      loader.load(`/holds/${this.type}.3mf`, (loadedObject) => {
         try {
           Object.assign(object, loadedObject)
         } catch (_) {

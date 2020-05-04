@@ -1,0 +1,12 @@
+{
+  "name": "Pocket",
+  "id": "pocket",
+  "model": {
+    "path": "pocket.3mf",
+    "props": {}
+  },
+  "editor": {
+    "color": "#F700B3",
+    "icon": "mdi-circle-double"
+  }
+}
