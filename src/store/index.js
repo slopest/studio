@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import holds from './modules/holds'
+import holds from '@/store/modules/holds'
 
 Vue.use(Vuex)
 

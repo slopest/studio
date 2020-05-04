@@ -1,12 +1,10 @@
 <template>
   <div class="hold">
     <model-loader
+      v-model="hold"
       v-bind="holdType.props"
       :name="name"
-      :src="`/holds/${holdType.model}`"
-      :position="position"
-      :rotation="hold.rotation"
-      :scale="hold.scale"/>
+      :src="`/holds/${holdType.model}`"/>
   </div>
 </template>
 

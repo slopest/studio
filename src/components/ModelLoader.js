@@ -1,51 +1,29 @@
-import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader'
 import { Object3D, Euler } from 'three'
+import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader'
 import { VglObject3d } from 'vue-gl'
 import { degreesToRadians } from '@/utils/conversions'
 
 export default {
   name: 'ModelLoader',
   mixins: [ VglObject3d ],
+  model: {
+    prop: 'hold'
+  },
   props: {
     src: {
       type: String,
       required: true
     },
-    position: {
+    hold: {
       type: Object,
-      default: () => {
-        return {
-          x: 0,
-          y: 0,
-          z: 0
-        }
-      }
-    },
-    rotation: {
-      type: Object,
-      default: () => {
-        return {
-          x: 0,
-          y: 0,
-          z: 0
-        }
-      }
-    },
-    scale: {
-      type: Object,
-      default: () => {
-        return {
-          x: 1,
-          y: 1,
-          z: 1
-        }
-      }
+      required: true
     }
   },
   computed: {
     inst() {
       let object = new Object3D()
       const loader = new ThreeMFLoader()
+
       loader.load(this.src, (loadedObject) => {
         try {
           Object.assign(object, loadedObject)
@@ -55,46 +33,45 @@ export default {
           // ...but we didn't touch it in this assign?
           // I guess javascript is weird c:
         }
-        object.name = `hold-${this.position.x / 20}-${this.position.y / 20}`
 
-        object.children[0].position.set(this.position.x, this.position.y, this.position.z)
+        object.name = `hold-${this.hold.position.x}-${this.hold.position.y}`
+        object.children[0].position.set(this.wallPosition.x, this.wallPosition.y, this.wallPosition.z)
         object.children[0].setRotationFromEuler(
           new Euler(
-            degreesToRadians(this.rotation.x),
-            degreesToRadians(this.rotation.y),
-            degreesToRadians(this.rotation.z)
+            degreesToRadians(this.hold.rotation.x),
+            degreesToRadians(this.hold.rotation.y),
+            degreesToRadians(this.hold.rotation.z)
           )
         )
-        object.children[0].scale.set(this.scale.x, this.scale.y, this.scale.z)
+        object.children[0].scale.set(this.hold.scale.x, this.hold.scale.y, this.hold.scale.z)
+
         this.vglObject3d.emit()
-      });
+      })
       return object
     },
+    wallPosition() {
+      return {
+        x: this.hold.position.x * 20,
+        y: this.hold.position.y * 20,
+        z: this.hold.position.z
+      }
+    }
   },
   watch: {
-    position: {
-      handler(value) {
-        this.inst.children[0].position.set(value.x, value.y, value.z)
-      },
-      deep: true
+    'hold.position.z'(value) {
+      this.inst.children[0].position.set(this.wallPosition.x, this.wallPosition.y, value)
     },
-    rotation: {
-      handler(value) {
-        this.inst.children[0].setRotationFromEuler(
-          new Euler(
-            degreesToRadians(value.x),
-            degreesToRadians(value.y),
-            degreesToRadians(value.z)
-          )
+    'hold.rotation'(value) {
+      this.inst.children[0].setRotationFromEuler(
+        new Euler(
+          degreesToRadians(value.x),
+          degreesToRadians(value.y),
+          degreesToRadians(value.z)
         )
-      },
-      deep: true
+      )
     },
-    scale: {
-      handler(value) {
-        this.inst.children[0].scale.set(value.x, value.y, value.z)
-      },
-      deep: true
+    'hold.scale'(value) {
+      this.inst.children[0].scale.set(value.x, value.y, value.z)
     }
   }
 }

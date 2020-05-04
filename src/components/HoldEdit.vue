@@ -198,7 +198,7 @@ export default {
         position: {
           x: this.x,
           y: this.y,
-          z: this.form.z,
+          z: parseFloat(this.form.z),
         },
         rotation: {
           x: this.form.xRotation,

@@ -6,6 +6,7 @@ import store from '@/store'
 import vuetify from '@/plugins/vuetify'
 import '@/registerServiceWorker'
 
+import '@/style/index.styl'
 import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'

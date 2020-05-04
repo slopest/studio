@@ -24,7 +24,7 @@
 
         <hold-geometry
           v-for="hold in wallHolds"
-          :key="`hold-${hold.x}-${hold.y}--geometry`"
+          :key="`hold-${hold.position.x}-${hold.position.y}--geometry`"
           :hold="hold"/>
         <vgl-ambient-light intensity="0.5"/>
         <vgl-directional-light
@@ -50,6 +50,12 @@ import HoldGeometry from './HoldGeometry.vue'
 
 export default {
   name: 'Preview',
+  components: {
+    VglRenderer, VglScene,
+    VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight,
+    VglMesh, VglMeshStandardMaterial, VglPlaneGeometry,
+    HoldGeometry
+  },
   props: {
     wallHolds: {
       type: Array,
@@ -68,12 +74,6 @@ export default {
     return {
       controls: undefined
     }
-  },
-  components: {
-    VglRenderer, VglScene,
-    VglPerspectiveCamera, VglAmbientLight, VglDirectionalLight,
-    VglMesh, VglMeshStandardMaterial, VglPlaneGeometry,
-    HoldGeometry
   },
   mounted() {
     this.controls = new OrbitControls(this.$refs.camera.inst, this.$refs.renderer.inst.domElement)
