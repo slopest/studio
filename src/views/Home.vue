@@ -1,7 +1,9 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="6">
+      <v-col
+        cols="12"
+        md="6">
         <h2>Editor</h2>
         <v-row>
           <v-col cols="12">
@@ -22,7 +24,7 @@
           </v-col>
           <v-col
             cols="12"
-            style="display: flex; flex-direction: column-reverse">
+            class="editor--grid">
             <v-row
               v-for="y in height"
               :key="y">
