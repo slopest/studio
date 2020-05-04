@@ -1,13 +1,13 @@
 <div align="center">
   <img src="./public/img/logo.png" alt="Highest logo" height="120">
-  <h3>Vue.js template used by Highest</h3>
-  <a href="https://highest.netlify.com">Website</a>
+  <h3>Model climbing routes like a pro</h3>
+  <a href="https://slope.netlify.app">Website</a>
   <br>
-  <a href="https://github.com/highest-app/template/blob/master/.LICENSE">
-    <img src="https://img.shields.io/github/license/highest-app/highest" alt="License"/>
+  <a href="https://github.com/exybore/slope-studio/blob/master/.LICENSE">
+    <img src="https://img.shields.io/github/license/exybore/slope-studio" alt="License"/>
   </a>
-  <a href="https://github.com/highest-app/template/issues">
-    <img src="https://img.shields.io/github/issues/exybore/highest" alt="Opened issues"/>
+  <a href="https://github.com/exybore/slope-studio/issues">
+    <img src="https://img.shields.io/github/issues/exybore/slope-studio" alt="Opened issues"/>
   </a>
 </div>
 
@@ -22,15 +22,7 @@
 
 ## 🌈 How it works
 
-It's a really simple template built on top of Vue.js. It includes :
-
-- Vuetify framework (Material Design components)
-- Vue Router
-- Vuex (stores)
-- Service worker and PWA (offline usage)
-- ESLint (code quality)
-
-It's used by [Highest](https://github.com/highest-app/highest) and delivered for everyone to use for various web projects.
+Write description
 
 ## 💻 Development
 
@@ -39,8 +31,8 @@ It's used by [Highest](https://github.com/highest-app/highest) and delivered for
 First of all, clone the repository from GitHub on your local machine : (this requires Git to be installed)
 
 ```bash
-git clone https://github.com/highest-app/template.git  # Using HTTP
-git clone git@github.com:highest-app/template          # Using SSH
+git clone https://github.com/exybore/slope-studio.git  # Using HTTP
+git clone git@github.com:exybore/slope-studio          # Using SSH
 ```
 
 Install the required dependencies using your favorite package manager :
@@ -93,5 +85,3 @@ If you want to customize the build configuration, check the [Configuration Refer
 ## 🔐 License
 
 This project is under the [GNU GPL v3](./LICENSE) license.
-
-**WARNING : this license is here as a placeholder for your project : the template itself is completely free, without any license !**
