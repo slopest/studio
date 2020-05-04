@@ -2,26 +2,38 @@ const holdTypes = [
   {
     name: 'Screw',
     id: 'screw',
-    model: 'screw.3mf',
-    props: {},
-    color: '#8a8a8a',
-    icon: 'mdi-circle-medium'
+    model: {
+      path: 'screw.3mf',
+      props: {},
+    },
+    editor: {
+      color: '#8a8a8a',
+      icon: 'mdi-circle-medium'
+    }
   },
   {
     name: 'Sloper',
     id: 'sloper',
-    model: 'sloper.3mf',
-    props: {},
-    color: '#B71C1C',
-    icon: 'mdi-circle'
+    model: {
+      path: 'sloper.3mf',
+      props: {},
+    },
+    editor: {
+      color: '#B71C1C',
+      icon: 'mdi-circle'
+    }
   },
   {
     name: 'Pocket',
     id: 'pocket',
-    model: 'pocket.3mf',
-    props: {},
-    color: '#F700B3',
-    icon: 'mdi-circle-double'
+    model: {
+      path: 'pocket.3mf',
+      props: {},
+    },
+    editor: {
+      color: '#F700B3',
+      icon: 'mdi-circle-double'
+    }
   },
 ]
 

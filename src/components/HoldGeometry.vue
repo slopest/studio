@@ -2,9 +2,9 @@
   <div class="hold">
     <model-loader
       v-model="hold"
-      v-bind="holdType.props"
+      v-bind="holdType.model.props"
       :name="name"
-      :src="`/holds/${holdType.model}`"/>
+      :src="`/holds/${holdType.model.path}`"/>
   </div>
 </template>
 

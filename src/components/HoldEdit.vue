@@ -16,8 +16,8 @@
         </v-icon>
         <v-icon
           v-else
-          :color="holdType.color">
-          {{ holdType.icon }}
+          :color="holdType.editor.color">
+          {{ holdType.editor.icon }}
         </v-icon>
       </v-btn>
     </template>
@@ -57,17 +57,17 @@
           label="Type">
           <template #selection="{ item }">
             <v-icon
-              :color="item.data.color"
+              :color="item.data.editor.color"
               left>
-              {{ item.data.icon }}
+              {{ item.data.editor.icon }}
             </v-icon>
             {{ item.data.name }}
           </template>
           <template #item="{ item }">
             <v-icon
-              :color="item.data.color"
+              :color="item.data.editor.color"
               left>
-              {{ item.data.icon }}
+              {{ item.data.editor.icon }}
             </v-icon>
             {{ item.data.name }}
           </template>
