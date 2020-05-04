@@ -203,6 +203,25 @@ export default {
       width: 5
     }
   },
-  computed: mapState(['holds'])
+  computed: mapState(['holds']),
+  metaInfo () {
+    return {
+      title: `Slope Studio`,
+      meta: [
+        {
+          property: 'og:title',
+          content: `Slope Studio`
+        },
+        {
+          property: 'og:description',
+          content: 'The graphical editor for the Slope route modeling'
+        },
+        {
+          property: 'og:url',
+          content: `https://slope.netlify.app/studio`
+        }
+      ]
+    }
+  }
 }
 </script>
