@@ -22,6 +22,25 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  metaInfo () {
+    return {
+      title: `Slope`,
+      meta: [
+        {
+          property: 'og:title',
+          content: `Slope`
+        },
+        {
+          property: 'og:description',
+          content: 'Model routes like a pro'
+        },
+        {
+          property: 'og:url',
+          content: `https://slope.netlify.app`
+        }
+      ]
+    }
+  }
 }
 </script>
