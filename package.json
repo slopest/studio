@@ -1,8 +1,8 @@
 {
-  "name": "highest-template",
+  "name": "slope-studio",
   "version": "1.0.0",
-  "description": "🧗‍ Vue.js template used by Highest",
-  "homepage": "https://github.com/highest-app/template",
+  "description": "Model climbing routes like a pro",
+  "homepage": "https://github.com/exybore/slope-studio",
   "keywords": [
     "vuejs",
     "vuetify",
@@ -11,7 +11,7 @@
   "licenses": [
     {
       "name": "GPL-3.0",
-      "url": "https://github.com/highest-app/template/blob/master/LICENSE"
+      "url": "https://github.com/exybore/slope-studio/blob/master/LICENSE"
     }
   ],
   "maintainers": [
@@ -24,7 +24,7 @@
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/highest-app/template.git"
+      "url": "https://github.com/exybore/slope-studio.git"
     }
   ],
   "scripts": {
@@ -39,6 +39,7 @@
     "jszip": "^3.4.0",
     "register-service-worker": "^1.7.1",
     "roboto-fontface": "*",
+    "slope-engine": "^1.0.0-beta1",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "three": "^0.116.1",
