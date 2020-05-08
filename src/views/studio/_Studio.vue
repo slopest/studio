@@ -1,5 +1,7 @@
 <template>
-  <div id="editor--ui">
+  <div
+    id="studio"
+    class="studio__editor-ui">
     <v-app-bar
       id="editor--bar"
       elevation="0"
@@ -23,20 +25,8 @@
             <v-icon>mdi-download-outline</v-icon>
           </v-btn>
         </template>
-        <span>Import route definition</span>
-      </v-tooltip>
-      <v-tooltip bottom>
-        <template #activator="{ on }">
-          <v-btn
-            icon
-            color="primary"
-            v-on="on">
-            <v-icon>mdi-upload-outline</v-icon>
-          </v-btn>
-        </template>
         <span>Download route definition</span>
       </v-tooltip>
-      <v-spacer/>
       <v-tooltip bottom>
         <template #activator="{ on }">
           <v-btn
@@ -78,59 +68,57 @@
       </template>
     </v-app-bar>
     <v-content>
-      <v-container>
-        <div class="editor--container">
-          <div
-            v-if="views[view].parts.editor"
-            class="editor--container__item">
-            <h2>Editor</h2>
-            <v-row>
-              <v-col cols="12">
-                <v-slider
-                  v-model="width"
-                  prepend-icon="mdi-arrow-left-right"
-                  label="Width"
-                  min="1"
-                  max="25"
-                  thumb-label/>
-                <v-slider
-                  v-model="height"
-                  prepend-icon="mdi-arrow-up-down"
-                  label="Height"
-                  min="2"
-                  max="55"
-                  thumb-label/>
-              </v-col>
-              <v-col
-                cols="12"
-                class="editor--grid">
-                <v-row
-                  v-for="y in height"
-                  :key="y"
-                  justify="center">
-                  <hold-edit
-                    v-for="x in width"
-                    :key="`hold-${x}-${y}--editor`"
-                    :x="x"
-                    :y="y"
-                    @remove="$refs.preview.removeHold($event)"/>
-                </v-row>
-              </v-col>
-            </v-row>
-          </div>
-          <div
-            v-if="views[view].parts.preview"
-            :style="views[view].parts.editor ? 'max-width: 50%' : ''"
-            class="editor--container__item">
-            <h2>Preview</h2>
-            <preview
-              ref="preview"
-              :wall-holds="holds"
-              :height="height"
-              :width="width"/>
-          </div>
+      <div class="editor--container">
+        <div
+          v-if="views[view].parts.editor"
+          :style="views[view].parts.preview ? 'border-right: 1px solid var(--v-border-base)' : ''"
+          class="editor--container__item">
+          <v-row>
+            <v-col cols="12">
+              <v-slider
+                v-model="width"
+                prepend-icon="mdi-arrow-left-right"
+                label="Width"
+                min="1"
+                max="25"
+                thumb-label/>
+              <v-slider
+                v-model="height"
+                prepend-icon="mdi-arrow-up-down"
+                label="Height"
+                min="2"
+                max="55"
+                thumb-label/>
+            </v-col>
+            <v-col
+              cols="12"
+              class="editor--grid">
+              <v-row
+                v-for="y in height"
+                :key="y"
+                justify="center">
+                <hold-edit
+                  v-for="x in width"
+                  :key="`hold-${x}-${y}--editor`"
+                  :x="x"
+                  :y="y"
+                  @remove="$refs.preview.removeHold($event)"/>
+              </v-row>
+            </v-col>
+          </v-row>
         </div>
-      </v-container>
+        <div
+          v-if="views[view].parts.preview"
+          id="preview"
+          :style="views[view].parts.editor ? 'max-width: 50%' : ''"
+          class="editor--container__item">
+          <preview
+            ref="preview"
+            :wall-holds="holds"
+            :height="height"
+            :width="width"/>
+        </div>
+      </div>
     </v-content>
     <v-footer app>
       <v-tooltip top>
@@ -198,6 +186,9 @@ export default {
         }
       ],
       view: 1,
+      importDialog: false,
+
+      importFile: undefined,
 
       height: 11,
       width: 5
