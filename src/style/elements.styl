@@ -1,5 +1,5 @@
 border--container()
-  1px solid #d1d1d1 !important
+  1px solid var(--v-border-base) !important
 
 .v-app-bar
 .v-footer
@@ -7,6 +7,15 @@ border--container()
 
 .v-app-bar:not(#editor--bar) .v-toolbar__content
 #editor--bar .v-toolbar__extension
+.bordered
   border-bottom: border--container()
 .v-footer
   border-top: border--container()
+
+.tile
+  box-shadow: none
+  border: border--container()
+  border-radius: 15px !important
+
+.tile + .tile
+  margin-top: 20px !important
