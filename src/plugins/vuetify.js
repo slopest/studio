@@ -8,8 +8,8 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify)
 
 const theme = {
-  primary: '#0042B9',
-  secondary: '#00CCAA',
+  primary: '#ff6600',
+  secondary: '#ff9f00',
   error: colors.red.darken4,
   info: colors.blue.base,
   success: colors.green.darken1,

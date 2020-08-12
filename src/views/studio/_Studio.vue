@@ -14,7 +14,7 @@
         @click="$router.back()">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
-      <v-toolbar-title>Slope Studio</v-toolbar-title>
+      <v-toolbar-title>Slopest Studio</v-toolbar-title>
       <v-spacer/>
       <v-tooltip bottom>
         <template #activator="{ on }">
@@ -132,7 +132,7 @@
         <span>Settings</span>
       </v-tooltip>
       <v-spacer/>
-      <div>&copy; {{ new Date().getFullYear() }}, Slope</div>
+      <div>&copy; {{ new Date().getFullYear() }}, Slopest</div>
     </v-footer>
   </div>
 </template>
@@ -197,11 +197,11 @@ export default {
   computed: mapState(['holds']),
   metaInfo () {
     return {
-      title: `Slope Studio`,
+      title: `Slopest Studio`,
       meta: [
         {
           property: 'og:title',
-          content: `Slope Studio`
+          content: `Slopest Studio`
         },
         {
           property: 'og:description',
@@ -209,7 +209,7 @@ export default {
         },
         {
           property: 'og:url',
-          content: `https://slope.netlify.app/studio`
+          content: `https://slopest.netlify.app/studio`
         }
       ]
     }

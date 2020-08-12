@@ -8,7 +8,7 @@
             color="primary"
             to="/studio"
             outlined>
-            Open Slope Studio
+            Open Slopest Studio
           </v-btn>
         </v-col>
       </v-row>

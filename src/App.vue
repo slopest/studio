@@ -5,10 +5,10 @@
       color="white"
       dense
       app>
-      <v-toolbar-title>Slope</v-toolbar-title>
+      <v-toolbar-title>Slopest</v-toolbar-title>
       <v-spacer/>
       <v-btn
-        color="primary"
+        class="gradient"
         to="/studio"
         depressed
         rounded>
@@ -25,11 +25,11 @@ export default {
   name: 'App',
   metaInfo () {
     return {
-      title: `Slope`,
+      title: `Slopest`,
       meta: [
         {
           property: 'og:title',
-          content: `Slope`
+          content: `Slopest`
         },
         {
           property: 'og:description',
@@ -37,7 +37,7 @@ export default {
         },
         {
           property: 'og:url',
-          content: `https://slope.netlify.app`
+          content: `https://slopest.netlify.app`
         }
       ]
     }
