@@ -1,0 +1,15 @@
+{
+  "name": "Functional holds",
+  "id": "functional",
+  "icon": "mdi-circle-medium",
+  "color": "grey",
+  "holds": [
+    {
+      "name": "Empty",
+      "id": "empty",
+      "model": {
+        "props": {}
+      }
+    }
+  ]
+}

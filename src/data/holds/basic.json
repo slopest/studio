@@ -1,0 +1,64 @@
+{
+  "name": "Basic holds",
+  "id": "basic",
+  "icon": "mdi-circle",
+  "color": "#0000FF",
+  "holds": [
+    {
+      "name": "Big incut",
+      "id": "big_incut",
+      "model": {
+        "props": {}
+      }
+    },
+    {
+      "name": "Crimp",
+      "id": "crimp",
+      "model": {
+        "props": {}
+      }
+    },
+    {
+      "name": "Pinch (flat)",
+      "id": "pinch_flat",
+      "model": {
+        "props": {}
+      }
+    },
+    {
+      "name": "Pinch (incut, 7.5)",
+      "id": "pinch_incut_7_5",
+      "model": {
+        "props": {}
+      }
+    },
+    {
+      "name": "Pinch (incut, 15)",
+      "id": "pinch_incut_15",
+      "model": {
+        "props": {}
+      }
+    },
+    {
+      "name": "Pinch (sloping, 7.5)",
+      "id": "pinch_sloping_7_5",
+      "model": {
+        "props": {}
+      }
+    },
+    {
+      "name": "Pinch (sloping, 15)",
+      "id": "pinch_sloping_15",
+      "model": {
+        "props": {}
+      }
+    },
+    {
+      "name": "Small incut",
+      "id": "small_incut",
+      "model": {
+        "props": {}
+      }
+    }
+  ]
+}
