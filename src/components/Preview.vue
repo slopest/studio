@@ -14,10 +14,10 @@
           color="#EB984E"/>
         <vgl-plane-geometry
           name="wall"
-          :width="width * 20"
-          :height="height * 20"/>
+          :width="width * 200"
+          :height="height * 200"/>
         <vgl-mesh
-          :position="`${10 + (width * 20 / 2)} ${10 + (height * 20 / 2)} 0`"
+          :position="`${100 + (width * 200 / 2)} ${100 + (height * 200 / 2)} 0`"
           name="wall-mesh"
           geometry="wall"
           material="wall-material"/>
