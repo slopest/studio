@@ -16,8 +16,8 @@
         </v-icon>
         <v-icon
           v-else
-          :color="holdType.editor.color">
-          {{ holdType.editor.icon }}
+          :color="holdLibrary.color">
+          {{ holdLibrary.icon }}
         </v-icon>
       </v-btn>
     </template>
@@ -51,27 +51,59 @@
             <span>Discard changes</span>
           </v-tooltip>
         </v-row>
-        <v-select
-          v-model="form.type"
-          :items="holdTypes.map(h => { return { value: h.id, data: h }})"
-          label="Type">
-          <template #selection="{ item }">
-            <v-icon
-              :color="item.data.editor.color"
-              left>
-              {{ item.data.editor.icon }}
-            </v-icon>
-            {{ item.data.name }}
+        <v-dialog
+          v-model="holdsMenu"
+          max-width="500">
+          <template #activator="{ on, attrs }">
+            <v-list>
+              <v-list-item
+                v-bind="attrs"
+                v-on="on">
+                <v-list-item-icon>
+                  <v-icon
+                    :color="findLibrary(form.type).color"
+                    left>
+                    {{ findLibrary(form.type).icon }}
+                  </v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>{{ findType(form.type).name }}</v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-action>
+                  <v-icon>mdi-chevron-right</v-icon>
+                </v-list-item-action>
+              </v-list-item>
+            </v-list>
           </template>
-          <template #item="{ item }">
-            <v-icon
-              :color="item.data.editor.color"
-              left>
-              {{ item.data.editor.icon }}
-            </v-icon>
-            {{ item.data.name }}
-          </template>
-        </v-select>
+          <v-card>
+            <v-card-title>Holds</v-card-title>
+            <v-row
+              cols="12"
+              md="6">
+              <v-col
+                v-for="library in holdLibraries"
+                :key="library.id">
+                <v-list subheader>
+                  <v-subheader>{{ library.name }}</v-subheader>
+                  <v-list-item
+                    v-for="hold in library.holds"
+                    :key="`${library.id}/${hold.id}`"
+                    @click="setHold(`${library.id}/${hold.id}`)">
+                    <v-list-item-avatar style="border-radius: 0 !important">
+                      <v-img :src="`/holds/${library.id}/${hold.id}.jpg`"/>
+                    </v-list-item-avatar>
+                    <v-list-item-content>{{ hold.name }}</v-list-item-content>
+                    <v-list-item-action>
+                      <v-btn icon>
+                        <v-icon>mdi-information-outline</v-icon>
+                      </v-btn>
+                    </v-list-item-action>
+                  </v-list-item>
+                </v-list>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-dialog>
         <v-subheader>Position</v-subheader>
         <v-text-field
           v-model="form.z"
@@ -81,15 +113,18 @@
         <v-slider
           v-model="form.xRotation"
           label="X"
-          max="360"/>
+          max="360"
+          thumb-label/>
         <v-slider
           v-model="form.yRotation"
           label="Y"
-          max="360"/>
+          max="360"
+          thumb-label/>
         <v-slider
           v-model="form.zRotation"
           label="Z"
-          max="360"/>
+          max="360"
+          thumb-label/>
         <v-subheader>Scale</v-subheader>
         <v-switch
           v-model="threeAxisScale"
@@ -102,26 +137,30 @@
             label="X"
             min="0"
             max="6"
-            step="0.05"/>
+            step="0.05"
+            thumb-label/>
           <v-slider
             v-model="form.yScale"
             label="Y"
             min="0"
             max="6"
-            step="0.05"/>
+            step="0.05"
+            thumb-label/>
           <v-slider
             v-model="form.zScale"
             label="Z"
             min="0"
             max="6"
-            step="0.05"/>
+            step="0.05"
+            thumb-label/>
         </template>
         <v-slider
           v-else
           v-model="form.xScale"
           min="0"
           max="6"
-          step="0.05"/>
+          step="0.05"
+          thumb-label/>
         <v-btn
           color="error"
           text
@@ -136,8 +175,8 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
-import { holdTypes, findType } from '../utils/holds'
-import { defaultHoldForm } from '../utils/data'
+import { holdLibraries, findType, findLibrary } from '@/utils/holds'
+import { defaultHoldForm } from '@/utils/data'
 
 export default {
   name: 'HoldEdit',
@@ -158,7 +197,8 @@ export default {
       oldForm: Object.assign({}, defaultHoldForm),
       form: Object.assign({}, defaultHoldForm),
 
-      holdTypes
+      holdsMenu: false,
+      holdLibraries
     }
   },
   computed: {
@@ -173,10 +213,15 @@ export default {
     holdType() {
       if (this.hold === undefined) return undefined
       else return findType(this.hold.type)
+    },
+    holdLibrary() {
+      if (this.hold === undefined) return undefined
+      else return findLibrary(this.hold.type.split('/')[0])
     }
   },
   methods: {
     ...mapActions(['addHold', 'updateHold', 'removeHold']),
+    findLibrary, findType,
     tryAdd() {
       if (this.hold === undefined) {
         this.addHold({
@@ -184,6 +229,10 @@ export default {
           y: this.y
         })
       }
+    },
+    setHold(name) {
+      this.form.type = name
+      this.holdsMenu = false
     },
     update() {
       if (!this.threeAxisScale) {

@@ -4,13 +4,13 @@
       v-model="hold"
       v-bind="holdType.model.props"
       :name="name"
-      :type="holdType.id"/>
+      :type="hold.type"/>
   </div>
 </template>
 
 <script>
 import ModelLoader from '@/components/ModelLoader'
-import { findType } from '../utils/holds'
+import { findType } from '@/utils/holds'
 
 export default {
   name: 'HoldGeometry',
@@ -30,9 +30,9 @@ export default {
     },
     position() {
       return {
-        x: this.hold.position.x * 20,
-        y: this.hold.position.y * 20,
-        z: this.hold.position.z * 20
+        x: this.hold.position.x * 200,
+        y: this.hold.position.y * 200,
+        z: this.hold.position.z * 200
       }
     }
   }

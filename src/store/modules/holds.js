@@ -11,7 +11,7 @@ const getters = {
 const mutations = {
   ADD_HOLD(state, { x, y }) {
     state.push({
-      type: 'sloper',
+      type: 'functional/empty',
       position: {
         x,
         y,

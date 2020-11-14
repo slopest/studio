@@ -1,5 +1,5 @@
 function getHolds() {
-  const types = require.context(`../data/holds`, true, /[A-Za-z0-9-_,\s]+\.json$/i)
+  const types = require.context(`@/data/holds`, true, /[A-Za-z0-9-_,\s]+\.json$/i)
   const holds = []
   types.keys().forEach(key => {
     const matched = key.match(/([A-Za-z0-9-_]+)\./i)
@@ -10,11 +10,16 @@ function getHolds() {
   return holds
 }
 
-const holdTypes = getHolds()
+const holdLibraries = getHolds()
 
-function findType(type) {
-  return holdTypes.find(hold => hold.id === type)
+function findLibrary(library) {
+  return holdLibraries.find(lib => lib.id === library.split('/')[0])
 }
 
-export default holdTypes
-export { holdTypes, findType }
+function findType(id) {
+  let parts = id.split('/')
+  return findLibrary(parts[0]).holds.find(h => h.id === parts[1])
+}
+
+export default holdLibraries
+export { holdLibraries, findType, findLibrary }

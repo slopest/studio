@@ -24,7 +24,10 @@ export default {
       let object = new Object3D()
       const loader = new ThreeMFLoader()
 
-      loader.load(`/holds/${this.type}.3mf`, (loadedObject) => {
+      let parts = this.type.split('/')
+      let library = parts[0]
+      let hold = parts[1]
+      loader.load(`/holds/${library}/${hold}.3mf`, (loadedObject) => {
         try {
           Object.assign(object, loadedObject)
         } catch (_) {
@@ -51,8 +54,8 @@ export default {
     },
     wallPosition() {
       return {
-        x: this.hold.position.x * 20,
-        y: this.hold.position.y * 20,
+        x: this.hold.position.x * 200,
+        y: this.hold.position.y * 200,
         z: this.hold.position.z
       }
     }

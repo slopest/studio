@@ -1,5 +1,5 @@
 const defaultHoldForm = {
-  type: 'sloper',
+  type: 'functional/empty',
   z: 0,
 
   xRotation: 0,
