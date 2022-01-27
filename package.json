@@ -41,7 +41,7 @@
     "roboto-fontface": "*",
     "stylus": "^0.54.8",
     "stylus-loader": "^3.0.2",
-    "three": "^0.119.1",
+    "three": "^0.137.0",
     "vue": "^2.6.11",
     "vue-gl": "^0.22.0",
     "vue-meta": "^2.4.0",
